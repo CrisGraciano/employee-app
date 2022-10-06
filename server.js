@@ -6,7 +6,7 @@ var view = require('./lib/view');
 var add = require('./lib/add');
 var update = require('./lib/update');
 
-var connection = mysql.createConnection ({
+const connection = mysql.createConnection ({
     host: 'localhost',
     port: 3306,
     user: 'root',
@@ -62,36 +62,24 @@ connection.connect(function(err) {
             ]
         }
     ])
-    .then(function ({ choice }) {
-        console.log(choice);
-        switch (choice) {
-            case 'viewDepartments':
-                viewDepartments();
-                break;
-            case 'addDepartment':
-                addDepartment();
-                break;
-            case 'viewRoles':
-                viewRoles();
-                break;
-            case 'addRoles':
-                addRole();
-                break;
-            case 'viewEmployees':
-                viewEmployees();
-                break;
-            case 'addEmployee':
-                addEmployee();
-                break;
-            case 'updateEmployee':
-                updateEmployee();
-                break;
-            case 'exit':
-                exit();
-                break;
+    .then(function(choice) {
+        if(answer.choice === 'viewDepartments') {
+            view.viewDepartments();
+        } else if(answer.choice === 'addDepartment') {
+            add.addDepartment();
+        } else if(answer.choice === 'viewRoles') {
+            view.viewRoles();
+        } else if(answer.choice === 'addRole') {
+            add.addRole();
+        } else if(answer.choice === 'viewEmployees') {
+            view.viewEmployees();
+        } else if(answer.choice === 'addEmployee') {
+            add.addEmployee();
+        } else if(answer.choice === 'updateEmployee') {
+            update.updateEmployeeRole();
+        } else if(answer.choice === 'exit') {
+            connection.end();
+            return
         }
     });
-  }
-
-  
-
+  };
