@@ -17,7 +17,7 @@ var connection = mysql.createConnection ({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
-    exports.start();
+    init();
   });
 
   function init() {
@@ -62,8 +62,7 @@ connection.connect(function(err) {
             ]
         }
     ])
-    .then(res => {
-        let choice = res.choice;
+    .then(function ({ choice }) {
         console.log(choice);
         switch (choice) {
             case 'viewDepartments':
@@ -91,7 +90,8 @@ connection.connect(function(err) {
                 exit();
                 break;
         }
-    })
+    });
   }
 
   
+
